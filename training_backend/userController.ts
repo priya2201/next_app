@@ -22,7 +22,7 @@ export const userSignup = async (
       res.status(400).json({ errors: validationError });
       return;
     }
-    const { email, phone, password } = UserInputs;
+    const { email, phone, password,confirmPassword } = UserInputs;
     console.log(UserInputs, "ui");
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -40,6 +40,7 @@ export const userSignup = async (
       address: req.body.address,
       firstName: req.body.firstName,
       lastName: req.body.lastName,
+      confirmPassword
     });
     res.status(201).json({ message: "User Created Successfully", result });
   } catch (error) {
@@ -67,7 +68,7 @@ export const userLogin = async (
     res.status(400).json({errors:validationError});
     return;
   }
-  const { email, password } = UserInputs;
+  const { email, password,rememberMe } = UserInputs;
     const isUser = await User.findOne({ email: email });
     if (!isUser) {
       res.status(404).json({ message: "User not found" });
@@ -83,7 +84,7 @@ export const userLogin = async (
       const signature = await jwt.sign(
         { _id: isUser._id, email: isUser.email },
         "APP_SECRET",
-        { expiresIn: "2d" }
+        { expiresIn: rememberMe ? '3d':'1d' }
       );
       res.status(200).json({
         signature,

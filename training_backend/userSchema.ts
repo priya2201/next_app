@@ -5,7 +5,9 @@ interface UserDoc extends Document{
     address: string,
     phone: string,
     firstName: string,
-    lastName:string
+    lastName: string,
+    rememberMe: boolean,
+    confirmPassword:string
 }
 
 const userSchema = new Schema({
@@ -14,7 +16,10 @@ const userSchema = new Schema({
     phone:{type:String,required:true},  
     firstName:{type:String,},  
     lastName: { type: String },  
-    address:{type:String},  
+    address: { type: String },  
+    rememberMe: { type: Boolean},
+    confirmPassword:{type:String,required:true},  
+
 
 }, {
     timestamps:true

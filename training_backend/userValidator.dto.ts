@@ -1,14 +1,17 @@
-import { IsEmail, Length } from "class-validator";
+import { IsEmail, Length ,IsBoolean} from "class-validator";
 
 export class UserInput {
   @IsEmail()
   email!: string;
 
-  @Length(7, 12)
+  @Length(10)
   phone!: string;
 
   @Length(6, 12)
   password!: string;
+
+  @Length(6, 12)
+  confirmPassword!: string;
 }
 
 export class LoginInput {
@@ -17,4 +20,8 @@ export class LoginInput {
 
   @Length(6, 12)
   password!: string;
+
+  @IsBoolean()
+  rememberMe!: boolean;
+
 }
