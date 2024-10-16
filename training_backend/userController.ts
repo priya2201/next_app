@@ -181,3 +181,11 @@ export const userLogout = async (
     }
   }
 };
+
+
+export const userData = async (req:Request,res:Response):Promise<void> => {
+  const formData = req.body; 
+  console.log(formData);
+  res.status(200).json({ message:  'done'})
+  return
+}
